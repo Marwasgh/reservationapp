@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salle-reservation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: salle-reservation
+  template:
+    metadata:
+      labels:
+        app: salle-reservation
+    spec:
+      containers:
+        - name: salle-reservation
+          image: marwasghaier22/salle_reservation:latest
+          ports:
+            - containerPort: 8002
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:password@postgres:5432/salledb"
+            - name: KAFKA_BROKER
+              value: "kafka:9092"
